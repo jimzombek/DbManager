@@ -12,10 +12,9 @@ public class ConnectionFactory {
   private static ConnectionFactory instance = null;
   private static Connection connection = null;
 
-  private static final String URL = "jdbc:mysql://localhost:3306/fantasy";
+  private static final String URL = "jdbc:mysql://localhost:3306/emptytomb";
   private static final String USER = "root";
   private static final String PASSWORD = "Tsa6tsbc!";
-  //private static final String PASSWORD = "8@D5613RedPrius";
   private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
   
 

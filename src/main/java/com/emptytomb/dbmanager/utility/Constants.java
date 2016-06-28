@@ -1,12 +1,28 @@
 package com.emptytomb.dbmanager.utility;
 
 public class Constants {
-	public static final String PASTOR_TABLE = "pastor";
-    public static final String PASTOR_ID = "id";
-    public static final String PASTOR_CHURCH_ID = "churchId";
-    public static final String PASTOR_NAME = "name";
-    public static final String PASTOR_BIO = "bio";
-    public static final String PASTOR_PICTURE = "picture";
+	public static final String ORGANIZATION_ID = "id";
+	public static final String ORGANIZATION_TABLE = "organization";
+    public static final String ORGANIZATION_NAME = "name";
+    public static final String ORGANIZATION_ADDRESS_LINE_1 = "addressLine1";
+    public static final String ORGANIZATION_ADDRESS_LINE_2 = "addressLine2";
+    public static final String ORGANIZATION_CITY = "city";
+    public static final String ORGANIZATION_PROVIDENCE = "providence";
+    public static final String ORGANIZATION_POSTAL_CODE = "postalCode";
+    public static final String ORGANIZATION_COUNTRY = "country";
+    public static final String ORGANIZATION_YEAR_STARTED = "yearStarted";
+    public static final String ORGANIZATION_AFFILIATION = "affiliation";
+    public static final String ORGANIZATION_WEB_SITE = "webSite";
+    public static final String ORGANIZATION_MEMBERSHIP_SIZE = "membershipSize";
+    
+           
+	public static final String PERSONALITY_TABLE = "personality";
+    public static final String PERSONALITY_ID = "id";
+    public static final String PERSONALITY_ORGANIZATION_ID = "organizationId";
+    public static final String PERSONALITY_NAME = "name";
+    public static final String PERSONALITY_TITLE = "title";
+    public static final String PERSONALITY_BIO = "bio";
+    public static final String PERSONALITY_PICTURE = "picture";
     
            
 	public static final String CONFERENCE_TABLE = "conference";
