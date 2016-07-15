@@ -25,6 +25,15 @@ public class Constants {
     public static final String PERSONALITY_PICTURE = "picture";
     
            
+    public static final String COMMENTARY_TABLE = "commentary";
+    public static final String COMMENTARY_ID = "id";
+    public static final String COMMENTARY_PERSONALITY_ID = "personalityId";
+    public static final String COMMENTARY_SCRIPTURE_ID = "scriptureId";
+    public static final String COMMENTARY_TEXT = "text";
+       
+    
+    
+    
 	public static final String CONFERENCE_TABLE = "conference";
     public static final String CONFERENCE_ID = "id";
     public static final String CONFERENCE_NAME = "name";

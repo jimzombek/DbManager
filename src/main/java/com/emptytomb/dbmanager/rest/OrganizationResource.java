@@ -10,31 +10,31 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.emptytomb.dbmanager.service.PersonalityService;
+import com.emptytomb.dbmanager.service.OrganizationService;
 import com.emptytomb.dbmanager.service.ServiceException;
 
 /**
- * The PersonalityResource class implements the CRUD REST end points for the Personality resource.
+ * The OrganizationResource class implements the CRUD REST end points for the Organization resource.
  * 
  * @author  Jim Zombek
  * @version 1.0
  * @since   2016-05-31
  */
-@Path("/personality")
-public class PersonalityResource {
+@Path("/organization")
+public class OrganizationResource {
 	/**
-	 * This method returns all Personalities.
+	 * This method returns all Organizations.
 	 * 
-	 * @return      JSON representation of all Personalities
+	 * @return      JSON representation of all Organizations
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getPersonalities() throws WebException {
+	public String getOrganizations() throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().getPersonalities();
+			result = OrganizationService.getInstance().getOrganizations();
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -42,20 +42,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method returns a Personality.
+	 * This method returns an Organization.
 	 * 
-	 * @param   id  the unique id of the personality to return.
-	 * @return      JSON representation of Personality
+	 * @param   id  the unique id of the organization to return.
+	 * @return      JSON representation of Organization
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getPersonality(@PathParam("id") final int id) throws WebException {
+	public String getOrganization(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().getPersonality(id);
+			result = OrganizationService.getInstance().getOrganization(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -63,13 +63,13 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method adds a new Personality
+	 * This method adds a new Organization
 	 * 
-	 * @param   personality  JSON representation of personality to add
-	 * @return               JSON representation of personality id added
+	 * @param   organization JSON representation of organization to add
+	 * @return               JSON representation of organization id added
 	 * 
 	 * <pre>{@code
-     * personalityId : Integer;
+     * organizationId : Integer;
      * }</pre>
      * 
 	 * @throws      WebException if an exception was encountered during processing
@@ -77,10 +77,10 @@ public class PersonalityResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String addPersonality(String personality) throws WebException {
+	public String addOrganization(String organization) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().addPersonality(personality);
+			result = OrganizationService.getInstance().addOrganization(organization);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -88,20 +88,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method updates an existing Personality
+	 * This method updates an existing Organization
 	 * 
-	 * @param   personality  JSON representation of personality to update
-	 * @return               JSON representation of personality id updated
+	 * @param   organization JSON representation of organization to update
+	 * @return               JSON representation of organization id updated
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String updatePersonality(String personality) throws WebException {
+	public String updateOrganization(String organization) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().updatePersonality(personality);
+			result = OrganizationService.getInstance().updateOrganization(organization);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -109,20 +109,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method deletes an existing Personality
+	 * This method deletes an existing Organization
 	 * 
-	 * @param   id  the unique id of the personality to delete.
-	 * @return      JSON representation of personality id deleted
+	 * @param   id  the unique id of the organization to delete.
+	 * @return      JSON representation of organization id deleted
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */		
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deletePersonaality(@PathParam("id") final int id) throws WebException {
+	public String deleteOrganization(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().deletePersonality(id);
+			result = OrganizationService.getInstance().deleteOrganization(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}

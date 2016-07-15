@@ -10,31 +10,31 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.emptytomb.dbmanager.service.PersonalityService;
+import com.emptytomb.dbmanager.service.CommentaryService;
 import com.emptytomb.dbmanager.service.ServiceException;
 
 /**
- * The PersonalityResource class implements the CRUD REST end points for the Personality resource.
+ * The CommentaryResource class implements the CRUD REST end points for the Commentary resource.
  * 
  * @author  Jim Zombek
  * @version 1.0
- * @since   2016-05-31
+ * @since   2016-07-01
  */
-@Path("/personality")
-public class PersonalityResource {
+@Path("/commentary")
+public class CommentaryResource {
 	/**
-	 * This method returns all Personalities.
+	 * This method returns all Commentaries.
 	 * 
-	 * @return      JSON representation of all Personalities
+	 * @return      JSON representation of all Commentaries
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getPersonalities() throws WebException {
+	public String getCommentaries() throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().getPersonalities();
+			result = CommentaryService.getInstance().getCommentaries();
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -42,20 +42,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method returns a Personality.
+	 * This method returns a Commentary.
 	 * 
-	 * @param   id  the unique id of the personality to return.
-	 * @return      JSON representation of Personality
+	 * @param   id  the unique id of the commentary to return.
+	 * @return      JSON representation of Commentary
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getPersonality(@PathParam("id") final int id) throws WebException {
+	public String getCommentary(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().getPersonality(id);
+			result = CommentaryService.getInstance().getCommentary(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -63,13 +63,13 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method adds a new Personality
+	 * This method adds a new Commentary
 	 * 
-	 * @param   personality  JSON representation of personality to add
-	 * @return               JSON representation of personality id added
+	 * @param   commentary   JSON representation of commentary to add
+	 * @return               JSON representation of commentary id added
 	 * 
 	 * <pre>{@code
-     * personalityId : Integer;
+     * commentaryId : Integer;
      * }</pre>
      * 
 	 * @throws      WebException if an exception was encountered during processing
@@ -77,10 +77,10 @@ public class PersonalityResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String addPersonality(String personality) throws WebException {
+	public String addCommentary(String commentary) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().addPersonality(personality);
+			result = CommentaryService.getInstance().addCommentary(commentary);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -88,20 +88,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method updates an existing Personality
+	 * This method updates an existing Commentary
 	 * 
-	 * @param   personality  JSON representation of personality to update
-	 * @return               JSON representation of personality id updated
+	 * @param   commentary   JSON representation of commentary to update
+	 * @return               JSON representation of commentary id updated
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String updatePersonality(String personality) throws WebException {
+	public String updateCommentary(String commentary) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().updatePersonality(personality);
+			result = CommentaryService.getInstance().updateCommentary(commentary);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -109,20 +109,20 @@ public class PersonalityResource {
 	}
 	
 	/**
-	 * This method deletes an existing Personality
+	 * This method deletes an existing Commentary
 	 * 
-	 * @param   id  the unique id of the personality to delete.
-	 * @return      JSON representation of personality id deleted
+	 * @param   id  the unique id of the commentary to delete.
+	 * @return      JSON representation of commentary id deleted
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */		
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deletePersonaality(@PathParam("id") final int id) throws WebException {
+	public String deleteCommentary(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = PersonalityService.getInstance().deletePersonality(id);
+			result = CommentaryService.getInstance().deleteCommentary(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
