@@ -212,6 +212,7 @@ public class OrganizationDaoJdbc implements OrganizationDao {
           pstmt.setString(9,organization.getAffiliation());   
           pstmt.setString(10,organization.getWebSite());   
           pstmt.setInt(11,organization.getMembershipSize());  
+          pstmt.setInt(12,organization.getOrganizationId()); 
             
           pstmt.executeUpdate();
       } catch (SQLException e) {

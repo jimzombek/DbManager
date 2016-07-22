@@ -11,8 +11,8 @@ package com.emptytomb.dbmanager.domain;
 public class Translation {
   private int translationId; 
   private String name;
-  private String description;
-  private String translation;  // kjv
+  private String history;
+  private String translationVersion;  // kjv
  
   public Translation() {
   }
@@ -48,28 +48,28 @@ public class Translation {
   /**
    * @return description value associated with Translation
   */
-  public String getDescription() {
-	return description;
+  public String getHistory() {
+	return history;
   }
 
   /**
    * @param description description value of the translation to set
   */
-  public void setDescription(String description) {
-	this.description = description;
+  public void setHistory(String history) {
+	this.history = history;
   }
 
   /**
-   * @return name of the translation associated with Translation
+   * @return name of the translation version associated with Translation
   */
-  public String getTranslation() {
-	return translation;
+  public String getTranslationVersion() {
+	return translationVersion;
   }
 
   /**
-   * @param translation name of the translation to set
+   * @param translation version name of the translation to set
   */
-  public void setTranslation(String translation) {
-	this.translation = translation;
+  public void setTranslationVersion(String translationVersion) {
+	this.translationVersion = translationVersion;
   }
 }
