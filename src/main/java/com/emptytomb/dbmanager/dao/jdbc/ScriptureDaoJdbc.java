@@ -123,7 +123,7 @@ public class ScriptureDaoJdbc implements ScriptureDao {
    }
   
   /**
-   * This method adds the specified Translation record to the translation table
+   * This method adds the specified Scripture record to the scripture table
    * stored in MySQL.
    * 
    * <p><b>Note:</b>Referential integrity foreign key constraints will be checked
@@ -131,24 +131,32 @@ public class ScriptureDaoJdbc implements ScriptureDao {
    * stored in MySQL. The organization record associated with this personality
    * must exist in the organization table stored in MySQL.</p>
    * 
-   * @param    translation the Translation object
-   * @return                the unique id of the Translation added
+   * @param    scripture the Scripture object
+   * @return                the unique id of the Scripture added
    * 
    * @throws   DaoException if a SQL Exception was encountered during processing
    */
   @Override
-  public int addTranslation(Translation translation) throws DaoException {
+  public int addScripture(Scripture scripture) throws DaoException {
       int autoIncKey = -1;
-	  String sql = "INSERT INTO " + TRANSLATION_TABLE + "(" +
-	               TRANSLATION_NAME + "," + 
-	               TRANSLATION_HISTORY + "," + 
-	               TRANSLATION_VERSION + ") " +  "VALUES" +  
-	               "(?,?,?)";
-  	               
+	  String sql = "INSERT INTO " + SCRIPTURE_TABLE + "(" +
+	               SCRIPTURE_TRANSLATION_ID + "," + 
+	               SCRIPTURE_TESTAMENT + "," + 
+	               SCRIPTURE_BOOK + "," + 
+	               SCRIPTURE_CHAPTER + "," + 
+	               SCRIPTURE_VERSE + "," + 
+	               SCRIPTURE_TEXT + "," +
+	               SCRIPTURE_PROPHECY + ") " +  "VALUES" +  
+	               "(?,?,?,?,?,?,?)";
+	  	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
-          pstmt.setString(1,translation.getName()); 
-          pstmt.setString(2,translation.getHistory());   
-          pstmt.setString(3,translation.getTranslationVersion());  
+          pstmt.setInt(1,scripture.getTranslationId());
+          pstmt.setString(2,scripture.getTestament());
+          pstmt.setString(3,scripture.getBook());
+          pstmt.setInt(4,scripture.getChapter());
+          pstmt.setInt(5,scripture.getVerse());
+          pstmt.setString(6,scripture.getText());
+          pstmt.setBoolean(7,scripture.isProphecy());
           pstmt.executeUpdate();
           
           // Get the auto-incremented key
@@ -156,13 +164,13 @@ public class ScriptureDaoJdbc implements ScriptureDao {
           if (rs.next()) {
               autoIncKey = rs.getInt(1);
           } else {
-          	  String errorMessage = this.getClass().getName() + ": addTranslation() - REASON-> " +
+          	  String errorMessage = this.getClass().getName() + ": addScripture() - REASON-> " +
         	      "error obtaining auto incremented key";
         	  logger.error(errorMessage);
         	  throw new DaoException(new Exception(), errorMessage);
           }
        } catch (SQLException e) {
-    	   String errorMessage = this.getClass().getName() + ": addTranslation() - REASON-> " + e.getMessage();
+    	   String errorMessage = this.getClass().getName() + ": addScripture() - REASON-> " + e.getMessage();
    	       logger.error(errorMessage);
 	       e.printStackTrace();
           throw new DaoException(e, errorMessage);
@@ -171,29 +179,37 @@ public class ScriptureDaoJdbc implements ScriptureDao {
   }
   
   /**
-   * This method updates the specified Translation record in the translation table
+   * This method updates the specified Scripture record in the scripture table
    * stored in MySQL.
    * 
-   * @param    translation  the Translation object
+   * @param    scripture  the Scripture object
    * 
    * @throws   DaoException if a SQL Exception was encountered during processing
    */
   @Override
-  public void updateTranslation(Translation translation) throws DaoException {
-      String sql = "UPDATE " + TRANSLATION_TABLE + " SET " +
-                   TRANSLATION_NAME + "=?, " + 
-                   TRANSLATION_HISTORY + "=?, " +    
-                   TRANSLATION_VERSION + "=? " +  "WHERE " + 
-                   TRANSLATION_ID + "=?;";
-    	               
-       try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
-          pstmt.setString(1,translation.getName()); 
-          pstmt.setString(2,translation.getHistory());   
-          pstmt.setString(3,translation.getTranslationVersion());  
-          pstmt.setInt(4,translation.getTranslationId());    
+  public void updateScripture(Scripture scripture) throws DaoException {
+      String sql = "UPDATE " + SCRIPTURE_TABLE + " SET " +
+                   SCRIPTURE_TRANSLATION_ID + "=?, " + 
+                   SCRIPTURE_TESTAMENT + "=?, " + 
+                   SCRIPTURE_BOOK + "=?, " + 
+                   SCRIPTURE_CHAPTER + "=?, " + 
+                   SCRIPTURE_VERSE + "=?, " + 
+                   SCRIPTURE_TEXT + "=?, " + 
+                   SCRIPTURE_PROPHECY + "=? " +  "WHERE " + 
+                   SCRIPTURE_ID + "=?;";
+       
+      try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
+          pstmt.setInt(1,scripture.getTranslationId());
+          pstmt.setString(2,scripture.getTestament());
+          pstmt.setString(3,scripture.getBook());
+          pstmt.setInt(4,scripture.getChapter());
+          pstmt.setInt(5,scripture.getVerse());
+          pstmt.setString(6,scripture.getText());
+          pstmt.setBoolean(7,scripture.isProphecy());
+          pstmt.setInt(8,scripture.getTranslationId());
           pstmt.executeUpdate();
       } catch (SQLException e) {
-    	   String errorMessage = this.getClass().getName() + ": updateTranslation() - REASON-> " + e.getMessage();
+    	   String errorMessage = this.getClass().getName() + ": updateScripture() - REASON-> " + e.getMessage();
    	       logger.error(errorMessage);
 	       e.printStackTrace();
           throw new DaoException(e, errorMessage);

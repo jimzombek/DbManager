@@ -34,7 +34,7 @@ public interface ScriptureDao {
      * @throws   DaoException if an underlying storage mechanism Exception was
      *           encountered during processing 
     */
-    public List<Scripture> getScripture() throws DaoException;
+    public List<Scripture> getScriptures() throws DaoException;
      
     /**
      * This method adds the specified Scripture record to the underlying 
