@@ -1,5 +1,7 @@
 package com.emptytomb.dbmanager.domain;
 
+import java.io.Serializable;
+
 /**
 * The Translation class is a simple POJO containing the getter/setter methods
 * for the Translation domain model.
@@ -8,7 +10,8 @@ package com.emptytomb.dbmanager.domain;
 * @version 1.0
 * @since   2016-05-31
 */
-public class Translation {
+public class Translation implements Serializable {
+  private static final long serialVersionUID = 1L;
   private int translationId; 
   private String name;
   private String history;

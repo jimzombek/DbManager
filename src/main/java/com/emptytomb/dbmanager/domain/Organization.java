@@ -1,5 +1,7 @@
 package com.emptytomb.dbmanager.domain;
 
+import java.io.Serializable;
+
 /**
 * The Organization class is a simple POJO containing the getter/setter methods
 * for the Organization domain model.
@@ -8,7 +10,8 @@ package com.emptytomb.dbmanager.domain;
 * @version 1.0
 * @since   2016-05-31
 */
-public class Organization {
+public class Organization implements Serializable {
+  private static final long serialVersionUID = 1L; 
   private int organizationId; 
   private String name; 
   private String addressLine1;

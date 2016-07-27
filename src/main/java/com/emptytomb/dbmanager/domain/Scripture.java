@@ -1,5 +1,7 @@
 package com.emptytomb.dbmanager.domain;
 
+import java.io.Serializable;
+
 /**
 * The Scripture class is a simple POJO containing the getter/setter methods
 * for the Scripture domain model.
@@ -8,14 +10,13 @@ package com.emptytomb.dbmanager.domain;
 * @version 1.0
 * @since   2016-05-31
 */
-public class Scripture {
+public class Scripture implements Serializable {
+  private static final long serialVersionUID = 1L;
   private int scriptureId;
-  private int translationId;
   private String testament;
   private String book;
   private int chapter;
   private int verse;
-  private String text;
   private boolean prophecy;
   private boolean jesusSpeaking;
      
@@ -34,20 +35,6 @@ public class Scripture {
   */
   public void setScriptureId(int scriptureId) {
 	this.scriptureId = scriptureId;
-  }
-
-  /**
-   * @return translation ID value associated with Scripture
-  */
-  public int getTranslationId() {
-	return translationId;
-  }
-
-  /**
-   * @param translationId translation ID value to set
-  */
-  public void setTranslationId(int translationId) {
-	this.translationId = translationId;
   }
 
   /**
@@ -105,21 +92,7 @@ public class Scripture {
   public void setVerse(int verse) {
 	this.verse = verse;
   }
-
-  /**
-   * @return text value associated with Scripture
-  */
-  public String getText() {
-	return text;
-  }
-
-  /**
-   * @param text text value of scripture to set
-  */
-  public void setText(String text) {
-	this.text = text;
-  }
-
+ 
   /**
    * @return prophecy value associated with Scripture. TRUE if the scripture fulfills prophecy, otherwise FALSE
   */
