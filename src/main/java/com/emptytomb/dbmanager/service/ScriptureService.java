@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.emptytomb.dbmanager.dao.DaoException;
 import com.emptytomb.dbmanager.dao.ScriptureDao;
-import com.emptytomb.dbmanager.dao.jdbc.ScriptureDaoJdbc;
 import com.emptytomb.dbmanager.domain.Scripture;
 import com.google.gson.Gson;
 
@@ -28,7 +27,7 @@ public class ScriptureService {
   private static Gson gson = new Gson();
    
   private ScriptureService() {
-      scriptureDAO = ScriptureDaoJdbc.getInstance();
+      scriptureDAO = ScriptureDao.getInstance();
   }
 
   /**
@@ -60,7 +59,7 @@ public class ScriptureService {
   public String getScripture(int id) throws ServiceException {
 	  String result = null;
 	  try {
-	      Scripture scripture = scriptureDAO.getScripture(id);
+	      Scripture scripture = scriptureDAO.get(id);
 	      result = gson.toJson(scripture);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getScripture() - REASON-> " + e.getReason();
@@ -80,7 +79,7 @@ public class ScriptureService {
   public String getScriptures() throws ServiceException {
 	  String result = null;
 	  try {
-		  List<Scripture> scriptures = scriptureDAO.getScriptures();
+		  List<Scripture> scriptures = scriptureDAO.list();
 	      result = gson.toJson(scriptures);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getScriptures() - REASON-> " + e.getReason();
@@ -102,7 +101,7 @@ public class ScriptureService {
 	  String result = null;
 	  try {
 		  Scripture scripture = gson.fromJson(scriptureJson, Scripture.class);
-		  int scriptureId = scriptureDAO.addScripture(scripture);
+		  int scriptureId = scriptureDAO.add(scripture);
 	      result = gson.toJson("scriptureId : " + scriptureId);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": addScripture() - REASON-> " + e.getReason();
@@ -124,7 +123,7 @@ public class ScriptureService {
 	  String result = null;
 	  try {
 		  Scripture scripture = gson.fromJson(scriptureJson, Scripture.class);
-		  scriptureDAO.updateScripture(scripture);
+		  scriptureDAO.update(scripture);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": updateScripture() - REASON-> " + e.getReason();
@@ -146,7 +145,7 @@ public class ScriptureService {
   public String deleteScripture(int id) throws ServiceException {
 	  String result = null;
 	  try {
-		  scriptureDAO.deleteScripture(id);
+		  scriptureDAO.delete(id);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": deleteScripture() - REASON-> " + e.getReason();

@@ -7,12 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import com.emptytomb.dbmanager.dao.DaoException;
 import com.emptytomb.dbmanager.dao.OrganizationDao;
-import com.emptytomb.dbmanager.dao.jdbc.OrganizationDaoJdbc;
 import com.emptytomb.dbmanager.domain.Organization;
 import com.google.gson.Gson;
 
 /**
-* The PersonalityService class implements the CRUD service layer for the Personality resource.
+* The OrganizationService class implements the CRUD service layer for the Organization resource.
 * 
 * <p><b>Note:</b> This class is implemented as a Singleton. Only one instance of this class
 * can exist at a time.</p>
@@ -28,7 +27,7 @@ public class OrganizationService {
   private static Gson gson = new Gson();
    
   private OrganizationService() {
-      organizationDAO = OrganizationDaoJdbc.getInstance();
+      organizationDAO = OrganizationDao.getInstance();
   }
 
   /**
@@ -60,7 +59,7 @@ public class OrganizationService {
   public String getOrganization(int id) throws ServiceException {
 	  String result = null;
 	  try {
-	      Organization organization = organizationDAO.getOrganization(id);
+	      Organization organization = organizationDAO.get(id);
 	      result = gson.toJson(organization);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getOrganization() - REASON-> " + e.getReason();
@@ -80,7 +79,7 @@ public class OrganizationService {
   public String getOrganizations() throws ServiceException {
 	  String result = null;
 	  try {
-		  List<Organization> organizations = organizationDAO.getOrganizations();
+		  List<Organization> organizations = organizationDAO.list();
 	      result = gson.toJson(organizations);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getOrganizations() - REASON-> " + e.getReason();
@@ -102,7 +101,7 @@ public class OrganizationService {
 	  String result = null;
 	  try {
 		  Organization organization = gson.fromJson(organizationJson, Organization.class);
-		  int organizationId = organizationDAO.addOrganization(organization);
+		  int organizationId = organizationDAO.add(organization);
 	      result = gson.toJson("organizationId : " + organizationId);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": addOrganization() - REASON-> " + e.getReason();
@@ -124,7 +123,7 @@ public class OrganizationService {
 	  String result = null;
 	  try {
 		  Organization organization = gson.fromJson(organizationJson, Organization.class);
-		  organizationDAO.updateOrganization(organization);
+		  organizationDAO.update(organization);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": updateOrganization() - REASON-> " + e.getReason();
@@ -146,7 +145,7 @@ public class OrganizationService {
   public String deleteOrganization(int id) throws ServiceException {
 	  String result = null;
 	  try {
-		  organizationDAO.deleteOrganization(id);
+		  organizationDAO.delete(id);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": deleteOrganization() - REASON-> " + e.getReason();

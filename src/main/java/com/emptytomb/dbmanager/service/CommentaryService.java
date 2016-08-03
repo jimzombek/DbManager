@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.emptytomb.dbmanager.dao.DaoException;
 import com.emptytomb.dbmanager.dao.CommentaryDao;
-import com.emptytomb.dbmanager.dao.jdbc.CommentaryDaoJdbc;
 import com.emptytomb.dbmanager.domain.Commentary;
 import com.google.gson.Gson;
 
@@ -28,7 +27,7 @@ public class CommentaryService {
   private static Gson gson = new Gson();
    
   private CommentaryService() {
-      commentaryDAO = CommentaryDaoJdbc.getInstance();
+      commentaryDAO = CommentaryDao.getInstance();
   }
 
   /**
@@ -60,7 +59,7 @@ public class CommentaryService {
   public String getCommentary(int id) throws ServiceException {
 	  String result = null;
 	  try {
-	      Commentary commentary = commentaryDAO.getCommentary(id);
+	      Commentary commentary = commentaryDAO.get(id);
 	      result = gson.toJson(commentary);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getCommentary() - REASON-> " + e.getReason();
@@ -80,7 +79,7 @@ public class CommentaryService {
   public String getCommentaries() throws ServiceException {
 	  String result = null;
 	  try {
-		  List<Commentary> commentaries = commentaryDAO.getCommentaries();
+		  List<Commentary> commentaries = commentaryDAO.list();
 	      result = gson.toJson(commentaries);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getCommentaries() - REASON-> " + e.getReason();
@@ -102,7 +101,7 @@ public class CommentaryService {
 	  String result = null;
 	  try {
 		  Commentary commentary = gson.fromJson(commentaryJson, Commentary.class);
-		  int commentaryId = commentaryDAO.addCommentary(commentary);
+		  int commentaryId = commentaryDAO.add(commentary);
 	      result = gson.toJson("commentaryId : " + commentaryId);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": addCommentary() - REASON-> " + e.getReason();
@@ -124,7 +123,7 @@ public class CommentaryService {
 	  String result = null;
 	  try {
 		  Commentary commentary = gson.fromJson(commentaryJson, Commentary.class);
-		  commentaryDAO.updateCommentary(commentary);
+		  commentaryDAO.update(commentary);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": updateCommentary() - REASON-> " + e.getReason();
@@ -146,7 +145,7 @@ public class CommentaryService {
   public String deleteCommentary(int id) throws ServiceException {
 	  String result = null;
 	  try {
-		  commentaryDAO.deleteCommentary(id);
+		  commentaryDAO.delete(id);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": deleteCommentary() - REASON-> " + e.getReason();

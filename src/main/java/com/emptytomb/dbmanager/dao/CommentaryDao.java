@@ -34,7 +34,7 @@ public class CommentaryDao implements BaseDao<Commentary> {
   private static final String COMMENTARY_TABLE = "commentary";
   private static final String COMMENTARY_ID = "id";
   private static final String COMMENTARY_PERSONALITY_ID = "personalityId";
-  private static final String COMMENTARY_SCRIPTURE_ID = "scriptureId";
+  private static final String COMMENTARY_PASSAGE_ID = "passageId";
   private static final String COMMENTARY_TEXT = "text";
      
    private CommentaryDao() {
@@ -122,9 +122,10 @@ public class CommentaryDao implements BaseDao<Commentary> {
    * table stored in MySQL.
    * 
    * <p><b>Note:</b>Referential integrity foreign key constraints will be checked
-   * prior to adding the specified organization record to the organization table
-   * stored in MySQL. The organization record associated with this personality
-   * must exist in the organization table stored in MySQL.</p>
+   * prior to adding the commentary record to the commentary table stored in MySQL.
+   * The personality id must exit in the personality table and the specified passage id
+   * must exist in the passage table, otherwise this call will fail with a Referential
+   * Integrity check.</p>
    * 
    * @param    commentary the Commentary object
    * @return                the unique id of the Commentary added
@@ -136,13 +137,13 @@ public class CommentaryDao implements BaseDao<Commentary> {
       int autoIncKey = -1;
 	  String sql = "INSERT INTO " + COMMENTARY_TABLE + "(" +
 	               COMMENTARY_PERSONALITY_ID + "," + 
-	               COMMENTARY_SCRIPTURE_ID + "," + 
+	               COMMENTARY_PASSAGE_ID + "," + 
 	               COMMENTARY_TEXT + ") " +  "VALUES" +  
 	               "(?,?,?)";
                    	   	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setInt(1,commentary.getPersonalityId());   
-          pstmt.setInt(2,commentary.getScriptureId());  
+          pstmt.setInt(2,commentary.getPassageId());  
           pstmt.setString(3,commentary.getText());    
           pstmt.executeUpdate();
              
@@ -177,13 +178,13 @@ public class CommentaryDao implements BaseDao<Commentary> {
   public void update(Commentary commentary) throws DaoException {
       String sql = "UPDATE " + COMMENTARY_TABLE + " SET " +
                    COMMENTARY_PERSONALITY_ID + "=?, " + 
-                   COMMENTARY_SCRIPTURE_ID + "=?, " +    
+                   COMMENTARY_PASSAGE_ID + "=?, " +    
                    COMMENTARY_TEXT + "=? " +  "WHERE " + 
                    COMMENTARY_ID + "=?;";
          	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
           pstmt.setInt(1,commentary.getPersonalityId()); 
-          pstmt.setInt(2,commentary.getScriptureId());   
+          pstmt.setInt(2,commentary.getPassageId());   
           pstmt.setString(3,commentary.getText());
           pstmt.setInt(4,commentary.getCommentaryId());
           pstmt.executeUpdate();
@@ -200,7 +201,7 @@ public class CommentaryDao implements BaseDao<Commentary> {
    * stored in MySQL. 
    * 
    * <p><b>Note:</b>Referential integrity foreign key constraints will be checked
-   * prior to deleting the specified personality record from the personality table
+   * prior to deleting the specified commentary record from the commentary table
    * stored in MySQL. All commentary records in the commentary table stored in MySQL
    * associated with the specified personality id must have been previously deleted
    * prior to calling this method.</p>
@@ -228,7 +229,7 @@ public class CommentaryDao implements BaseDao<Commentary> {
                
        commentary.setCommentaryId(resultSet.getInt(COMMENTARY_ID));
        commentary.setPersonalityId(resultSet.getInt(COMMENTARY_PERSONALITY_ID));
-       commentary.setScriptureId(resultSet.getInt(COMMENTARY_SCRIPTURE_ID));
+       commentary.setPassageId(resultSet.getInt(COMMENTARY_PASSAGE_ID));
        commentary.setText(resultSet.getString(COMMENTARY_TEXT));
              
        return commentary;

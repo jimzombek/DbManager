@@ -36,6 +36,7 @@ public class ScriptureDao implements BaseDao<Scripture> {
   private static final String SCRIPTURE_ID = "id";
   private static final String SCRIPTURE_TESTAMENT = "testament";
   private static final String SCRIPTURE_BOOK = "book";
+  private static final String SCRIPTURE_BOOK_AUTHOR = "author";
   private static final String SCRIPTURE_CHAPTER ="chapter";
   private static final String SCRIPTURE_VERSE = "verse";
   private static final String SCRIPTURE_PROPHECY ="prophecy";
@@ -140,17 +141,19 @@ public class ScriptureDao implements BaseDao<Scripture> {
 	  String sql = "INSERT INTO " + SCRIPTURE_TABLE + "(" +
 	               SCRIPTURE_TESTAMENT + "," + 
 	               SCRIPTURE_BOOK + "," + 
+	               SCRIPTURE_BOOK_AUTHOR + "," + 
 	               SCRIPTURE_CHAPTER + "," + 
 	               SCRIPTURE_VERSE + "," + 
 	               SCRIPTURE_PROPHECY + ") " +  "VALUES" +  
-	               "(?,?,?,?,?)";
+	               "(?,?,?,?,?,?)";
 	  	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setString(1,scripture.getTestament());
           pstmt.setString(2,scripture.getBook());
-          pstmt.setInt(3,scripture.getChapter());
-          pstmt.setInt(4,scripture.getVerse());
-          pstmt.setBoolean(5,scripture.isProphecy());
+          pstmt.setString(3,scripture.getAuthor());
+          pstmt.setInt(4,scripture.getChapter());
+          pstmt.setInt(5,scripture.getVerse());
+          pstmt.setBoolean(6,scripture.isProphecy());
           pstmt.executeUpdate();
           
           // Get the auto-incremented key
@@ -185,6 +188,7 @@ public class ScriptureDao implements BaseDao<Scripture> {
       String sql = "UPDATE " + SCRIPTURE_TABLE + " SET " +
                    SCRIPTURE_TESTAMENT + "=?, " + 
                    SCRIPTURE_BOOK + "=?, " + 
+                   SCRIPTURE_BOOK_AUTHOR + "=?, " + 
                    SCRIPTURE_CHAPTER + "=?, " + 
                    SCRIPTURE_VERSE + "=?, " + 
                    SCRIPTURE_PROPHECY + "=? " +  "WHERE " + 
@@ -193,10 +197,11 @@ public class ScriptureDao implements BaseDao<Scripture> {
       try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
           pstmt.setString(1,scripture.getTestament());
           pstmt.setString(2,scripture.getBook());
-          pstmt.setInt(3,scripture.getChapter());
-          pstmt.setInt(4,scripture.getVerse());
-          pstmt.setBoolean(5,scripture.isProphecy());
-          pstmt.setInt(6,scripture.getScriptureId());
+          pstmt.setString(3,scripture.getAuthor());
+          pstmt.setInt(4,scripture.getChapter());
+          pstmt.setInt(5,scripture.getVerse());
+          pstmt.setBoolean(6,scripture.isProphecy());
+          pstmt.setInt(7,scripture.getScriptureId());
           pstmt.executeUpdate();
       } catch (SQLException e) {
     	   String errorMessage = this.getClass().getName() + ": updateScripture() - REASON-> " + e.getMessage();
@@ -240,6 +245,7 @@ public class ScriptureDao implements BaseDao<Scripture> {
        scripture.setScriptureId(resultSet.getInt(SCRIPTURE_ID));
        scripture.setTestament(resultSet.getString(SCRIPTURE_TESTAMENT));
        scripture.setBook(resultSet.getString(SCRIPTURE_BOOK));
+       scripture.setAuthor(resultSet.getString(SCRIPTURE_BOOK_AUTHOR));
        scripture.setChapter(resultSet.getInt(SCRIPTURE_CHAPTER));
        scripture.setVerse(resultSet.getInt(SCRIPTURE_VERSE));
        scripture.setProphecy(resultSet.getBoolean(SCRIPTURE_PROPHECY));

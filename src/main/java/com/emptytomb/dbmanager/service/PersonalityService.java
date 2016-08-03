@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.emptytomb.dbmanager.dao.DaoException;
 import com.emptytomb.dbmanager.dao.PersonalityDao;
-import com.emptytomb.dbmanager.dao.jdbc.PersonalityDaoJdbc;
 import com.emptytomb.dbmanager.domain.Personality;
 import com.google.gson.Gson;
 
@@ -28,7 +27,7 @@ public class PersonalityService {
   private static Gson gson = new Gson();
    
   private PersonalityService() {
-      personalityDAO = PersonalityDaoJdbc.getInstance();
+      personalityDAO = PersonalityDao.getInstance();
   }
 
   /**
@@ -60,7 +59,7 @@ public class PersonalityService {
   public String getPersonality(int id) throws ServiceException {
 	  String result = null;
 	  try {
-	      Personality personality = personalityDAO.getPersonality(id);
+	      Personality personality = personalityDAO.get(id);
 	      result = gson.toJson(personality);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getPersonality() - REASON-> " + e.getReason();
@@ -80,7 +79,7 @@ public class PersonalityService {
   public String getPersonalities() throws ServiceException {
 	  String result = null;
 	  try {
-		  List<Personality> personalities = personalityDAO.getPersonalities();
+		  List<Personality> personalities = personalityDAO.list();
 	      result = gson.toJson(personalities);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getPersonalities() - REASON-> " + e.getReason();
@@ -102,7 +101,7 @@ public class PersonalityService {
 	  String result = null;
 	  try {
 		  Personality personality = gson.fromJson(personalityJson, Personality.class);
-		  int personalityId = personalityDAO.addPersonality(personality);
+		  int personalityId = personalityDAO.add(personality);
 	      result = gson.toJson("personalityId : " + personalityId);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": addPersonality() - REASON-> " + e.getReason();
@@ -124,7 +123,7 @@ public class PersonalityService {
 	  String result = null;
 	  try {
 		  Personality personality = gson.fromJson(personalityJson, Personality.class);
-		  personalityDAO.updatePersonality(personality);
+		  personalityDAO.update(personality);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": updatePersonality() - REASON-> " + e.getReason();
@@ -146,7 +145,7 @@ public class PersonalityService {
   public String deletePersonality(int id) throws ServiceException {
 	  String result = null;
 	  try {
-		  personalityDAO.deletePersonality(id);
+		  personalityDAO.delete(id);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": deletePersonality() - REASON-> " + e.getReason();

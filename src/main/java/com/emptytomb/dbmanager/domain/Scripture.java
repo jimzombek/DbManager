@@ -15,11 +15,11 @@ public class Scripture implements Serializable {
   private int scriptureId;
   private String testament;
   private String book;
+  private String author;
   private int chapter;
   private int verse;
   private boolean prophecy;
-  private boolean jesusSpeaking;
-     
+      
   public Scripture() {
   }
 
@@ -64,6 +64,20 @@ public class Scripture implements Serializable {
   public void setBook(String book) {
 	this.book = book;
   }
+  
+  /**
+   * @return the author of the book associated with Scripture
+  */
+  public String getAuthor() {
+	return author;
+  }
+
+  /**
+   * @param author name of the book to set
+  */
+  public void setAuthor(String author) {
+	this.author = author;
+  }
 
   /**
    * @return chapter value associated with Scripture
@@ -94,30 +108,19 @@ public class Scripture implements Serializable {
   }
  
   /**
-   * @return prophecy value associated with Scripture. TRUE if the scripture fulfills prophecy, otherwise FALSE
+   * @return prophecy value associated with Scripture. Returns TRUE if the scripture 
+   * fulfills prophecy, otherwise FALSE
   */
   public boolean isProphecy() {
 	return prophecy;
   }
 
   /**
-   * @param prophecy prophecy value to set. TRUE if the Jesus is speaking, otherwise FALSE
+   * @param prophecy prophecy value to set. TRUE if the scripture fulfills prophecy, 
+   * otherwise FALSE
   */
   public void setProphecy(boolean prophecy) {
 	this.prophecy = prophecy;
   }
 
-  /**
-   * @return Jesus speaking value associated with Scripture. TRUE if the Jesus is speaking, otherwise FALSE
-  */
-  public boolean isJesusSpeaking() {
-	return jesusSpeaking;
-  }
-
-  /**
-   * @param jesusSpeaking jesusSpeaking value to set. TRUE if the Jesus is speaking, otherwise FALSE
-  */
-  public void setJesusSpeaking(boolean jesusSpeaking) {
-	this.jesusSpeaking = jesusSpeaking;
-  }
 }

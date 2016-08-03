@@ -211,9 +211,7 @@ public class PersonalityDao implements BaseDao<Personality> {
    * 
    * <p><b>Note:</b>Referential integrity foreign key constraints will be checked
    * prior to deleting the specified personality record from the personality table
-   * stored in MySQL. All commentary records in the commentary table stored in MySQL
-   * associated with the specified personality id must have been previously deleted
-   * prior to calling this method.</p>
+   * stored in MySQL.</p>
    * 
    * @param   id  the unique id of the personality to delete.
    *  

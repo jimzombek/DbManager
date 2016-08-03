@@ -14,7 +14,7 @@ public class Commentary implements Serializable {
   private static final long serialVersionUID = 1L;
   private int commentaryId;
   private int personalityId;
-  private int scriptureId;
+  private int passageId;
   private String text;
  
   public Commentary() {
@@ -49,17 +49,17 @@ public class Commentary implements Serializable {
   }
 
   /**
-   * @return scripture ID value associated with Commentary
+   * @return passage ID value associated with Commentary
   */
-  public int getScriptureId() {
-	return scriptureId;
+  public int getPassageId() {
+	return passageId;
   }
 
   /**
-   * @param scriptureId scripture ID value to set
+   * @param passageId passage ID value to set
   */
-  public void setScriptureId(int scriptureId) {
-	this.scriptureId = scriptureId;
+  public void setPassageId(int passageId) {
+	this.passageId = passageId;
   }
 
   /**

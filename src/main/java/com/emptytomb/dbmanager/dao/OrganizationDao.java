@@ -239,11 +239,9 @@ public class OrganizationDao implements BaseDao<Organization> {
    * This method deletes the specified organization id from the organization table
    * stored in MySQL. 
    * 
-   * <p><b>Note:</b>Referential integrity foreign key constraints will be checked
-   * prior to deleting the specified personality record from the personality table
-   * stored in MySQL. All commentary records in the commentary table stored in MySQL
-   * associated with the specified personality id must have been previously deleted
-   * prior to calling this method.</p>
+   * <p><b>Note:</b>Referential integrity foreign key constraints will be checked prior
+   * to deleting the specified organization record from the organization table stored
+   * in MySQL.</p>
    * 
    * @param   id  the unique id of the organization to delete.
    *  
