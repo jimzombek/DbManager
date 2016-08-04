@@ -142,7 +142,7 @@ public class TranslationDao implements BaseDao<Translation> {
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setString(1,translation.getName()); 
           pstmt.setString(2,translation.getHistory());   
-          pstmt.setString(3,translation.getTranslationVersion());  
+          pstmt.setString(3,translation.getVersion());  
           pstmt.executeUpdate();
           
           // Get the auto-incremented key
@@ -183,7 +183,7 @@ public class TranslationDao implements BaseDao<Translation> {
        try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
           pstmt.setString(1,translation.getName()); 
           pstmt.setString(2,translation.getHistory());   
-          pstmt.setString(3,translation.getTranslationVersion());  
+          pstmt.setString(3,translation.getVersion());  
           pstmt.setInt(4,translation.getTranslationId());    
           pstmt.executeUpdate();
       } catch (SQLException e) {
@@ -228,7 +228,7 @@ public class TranslationDao implements BaseDao<Translation> {
        translation.setTranslationId(resultSet.getInt(TRANSLATION_ID));
        translation.setName(resultSet.getString(TRANSLATION_NAME));
        translation.setHistory(resultSet.getString(TRANSLATION_HISTORY));
-       translation.setTranslationVersion(resultSet.getString(TRANSLATION_VERSION));
+       translation.setVersion(resultSet.getString(TRANSLATION_VERSION));
                    
        return translation;
    }

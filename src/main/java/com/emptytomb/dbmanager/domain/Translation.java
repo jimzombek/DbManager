@@ -15,7 +15,7 @@ public class Translation implements Serializable {
   private int translationId; 
   private String name;
   private String history;
-  private String translationVersion;  // kjv
+  private String version;  // kjv
  
   public Translation() {
   }
@@ -65,14 +65,14 @@ public class Translation implements Serializable {
   /**
    * @return name of the translation version associated with Translation
   */
-  public String getTranslationVersion() {
-	return translationVersion;
+  public String getVersion() {
+	return version;
   }
 
   /**
    * @param translation version name of the translation to set
   */
-  public void setTranslationVersion(String translationVersion) {
-	this.translationVersion = translationVersion;
+  public void setVersion(String version) {
+	this.version = version;
   }
 }
