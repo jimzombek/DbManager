@@ -1,7 +1,6 @@
 package com.emptytomb.dbmanager.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
 * The Question class is a simple POJO containing the getter/setter methods
@@ -20,7 +19,6 @@ public class Question implements Serializable {
   private String type;
   private String testament;
   private String difficulty;
-  private Date lastTimePresented;
   private float sinceVersion;
   
    
@@ -123,20 +121,6 @@ public class Question implements Serializable {
   */
   public void setDifficulty(String difficulty) {
 	this.difficulty = difficulty;
-  }
-
-  /**
-   * @return lastTimePresented value associated with Question
-  */
-  public Date getLastTimePresented() {
-	return lastTimePresented;
-  }
-
-  /**
-   * @param lastTimePresented lastTimePresented to set
-  */
-  public void setLastTimePresented(Date lastTimePresented) {
-	this.lastTimePresented = lastTimePresented;
   }
 
   /**

@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 public class QuestionService {
   private Logger logger = LoggerFactory.getLogger(QuestionService.class);
   private static QuestionService instance = null;
-  private static QuestionDao passageDAO = null;
+  private static QuestionDao questionDAO = null;
   private static Gson gson = new Gson();
    
   private QuestionService() {

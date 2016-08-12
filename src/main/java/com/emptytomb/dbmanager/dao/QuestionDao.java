@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -39,7 +38,6 @@ public class QuestionDao implements BaseDao<Question> {
   private static final String QUESTION_TYPE = "type";
   private static final String QUESTION_TESTAMENT = "testament";
   private static final String QUESTION_DIFFICULTY = "difficulty";
-  private static final String QUESTION_LAST_TIME_PRESENTED = "'lastTimePresented";
   private static final String QUESTION_SINCE_VERSION = "sinceVersion";
     
   private QuestionDao() {
@@ -142,9 +140,8 @@ public class QuestionDao implements BaseDao<Question> {
                    QUESTION_TYPE + "," + 
                    QUESTION_TESTAMENT + "," +   
                    QUESTION_DIFFICULTY + "," + 
-                   QUESTION_LAST_TIME_PRESENTED + "," + 
                    QUESTION_SINCE_VERSION + ") " +  "VALUES" +  
-                   "(?,?,?,?,?,?,?,?)";
+                   "(?,?,?,?,?,?,?)";
 	  	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setInt(1,question.getCategoryId());
@@ -153,8 +150,7 @@ public class QuestionDao implements BaseDao<Question> {
           pstmt.setString(4,question.getType());
           pstmt.setString(5,question.getTestament()); 
           pstmt.setString(6,question.getDifficulty());
-          pstmt.setTimestamp(7,question.getLastTimePresented()); 
-          pstmt.setFloat(8,question.getSinceVersion());
+          pstmt.setFloat(7,question.getSinceVersion());
           pstmt.executeUpdate();
  
           // Get the auto-incremented key
@@ -192,7 +188,6 @@ public class QuestionDao implements BaseDao<Question> {
                    QUESTION_TYPE + "=?, " + 
                    QUESTION_TESTAMENT + "=?, " + 
                    QUESTION_DIFFICULTY + "=?, " + 
-                   QUESTION_LAST_TIME_PRESENTED + "=?, " + 
                    QUESTION_SINCE_VERSION + "=? " +  "WHERE " +  
                    QUESTION_ID + "=?;"; 
          
@@ -203,9 +198,8 @@ public class QuestionDao implements BaseDao<Question> {
           pstmt.setString(4,question.getType()); 
           pstmt.setString(5,question.getTestament()); 
           pstmt.setString(6,question.getDifficulty()); 
-          pstmt.setTimestamp(7,question.getLastTimePresented().getTime()); 
-          pstmt.setFloat(8,question.getSinceVersion()); 
-          pstmt.setInt(9,question.getQuestionId());
+          pstmt.setFloat(7,question.getSinceVersion()); 
+          pstmt.setInt(8,question.getQuestionId());
           pstmt.executeUpdate();
       } catch (SQLException e) {
     	   String errorMessage = this.getClass().getName() + ": updateQuestion() - REASON-> " + e.getMessage();
@@ -252,7 +246,6 @@ public class QuestionDao implements BaseDao<Question> {
        question.setType(resultSet.getString(QUESTION_TYPE));
        question.setTestament(resultSet.getString(QUESTION_TESTAMENT));
        question.setDifficulty(resultSet.getString(QUESTION_DIFFICULTY));
-       question.setLastTimePresented(resultSet.getTimestamp(QUESTION_LAST_TIME_PRESENTED));
        question.setSinceVersion(resultSet.getFloat(QUESTION_SINCE_VERSION));
                  
        return question;
