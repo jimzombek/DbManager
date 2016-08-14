@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import com.emptytomb.dbmanager.dao.DaoException;
 import com.emptytomb.dbmanager.dao.TranslationDao;
-import com.emptytomb.dbmanager.dao.jdbc.TranslationDaoJdbc;
 import com.emptytomb.dbmanager.domain.Translation;
 import com.google.gson.Gson;
 
@@ -28,7 +27,7 @@ public class TranslationService {
   private static Gson gson = new Gson();
    
   private TranslationService() {
-      translationDAO = TranslationDaoJdbc.getInstance();
+      translationDAO = TranslationDao.getInstance();
   }
 
   /**
@@ -60,7 +59,7 @@ public class TranslationService {
   public String getTranslation(int id) throws ServiceException {
 	  String result = null;
 	  try {
-	      Translation translation = translationDAO.getTranslation(id);
+	      Translation translation = translationDAO.get(id);
 	      result = gson.toJson(translation);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getTranslation() - REASON-> " + e.getReason();
@@ -80,7 +79,7 @@ public class TranslationService {
   public String getTranslations() throws ServiceException {
 	  String result = null;
 	  try {
-		  List<Translation> translations = translationDAO.getTranslations();
+		  List<Translation> translations = translationDAO.list();
 	      result = gson.toJson(translations);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": getTranslations() - REASON-> " + e.getReason();
@@ -102,7 +101,7 @@ public class TranslationService {
 	  String result = null;
 	  try {
 		  Translation translation = gson.fromJson(translationJson, Translation.class);
-		  int translationId = translationDAO.addTranslation(translation);
+		  int translationId = translationDAO.add(translation);
 	      result = gson.toJson("translationId : " + translationId);
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": addTranslation() - REASON-> " + e.getReason();
@@ -124,7 +123,7 @@ public class TranslationService {
 	  String result = null;
 	  try {
 		  Translation translation = gson.fromJson(translationJson, Translation.class);
-		  translationDAO.updateTranslation(translation);
+		  translationDAO.update(translation);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": updateTranslation() - REASON-> " + e.getReason();
@@ -146,7 +145,7 @@ public class TranslationService {
   public String deleteTranslation(int id) throws ServiceException {
 	  String result = null;
 	  try {
-		  translationDAO.deleteTranslation(id);
+		  translationDAO.delete(id);
 	      result = gson.toJson("SUCCESS : 200");
 	  } catch (DaoException e) {
 		  String errorMessage = this.getClass().getName() + ": deleteTranslation() - REASON-> " + e.getReason();
