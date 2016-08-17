@@ -33,7 +33,6 @@ public class QuestionDao implements BaseDao<Question> {
   private static final String QUESTION_TABLE = "question";
   private static final String QUESTION_ID = "id";
   private static final String QUESTION_CATEGORY_ID = "categoryId";
-  private static final String QUESTION_ANSWER_ID = "answerId";
   private static final String QUESTION_TEXT = "text";
   private static final String QUESTION_TYPE = "type";
   private static final String QUESTION_TESTAMENT = "testament";
@@ -52,7 +51,7 @@ public class QuestionDao implements BaseDao<Question> {
    */
   public static QuestionDao getInstance() {
       if (instance == null) {      
-          synchronized (PassageDao.class) {
+          synchronized (QuestionDao.class) {
               if (instance == null) {
                   instance = new QuestionDao(); 
               }
@@ -135,20 +134,18 @@ public class QuestionDao implements BaseDao<Question> {
       int autoIncKey = -1;
 	  String sql = "INSERT INTO " + QUESTION_TABLE + "(" +
 	               QUESTION_CATEGORY_ID + "," +   
-                   QUESTION_ANSWER_ID + "," + 
                    QUESTION_TEXT + "," + 
                    QUESTION_TYPE + "," + 
                    QUESTION_TESTAMENT + "," +   
                    QUESTION_DIFFICULTY + "," + 
                    QUESTION_SINCE_VERSION + ") " +  "VALUES" +  
-                   "(?,?,?,?,?,?,?)";
+                   "(?,?,?,?,?,?)";
 	  	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setInt(1,question.getCategoryId());
-          pstmt.setInt(2,question.getAnswerId());
-          pstmt.setString(3,question.getText());
-          pstmt.setString(4,question.getType());
-          pstmt.setString(5,question.getTestament()); 
+          pstmt.setString(2,question.getText());
+          pstmt.setString(3,question.getType());
+          pstmt.setString(4,question.getTestament()); 
           pstmt.setString(6,question.getDifficulty());
           pstmt.setFloat(7,question.getSinceVersion());
           pstmt.executeUpdate();
@@ -183,7 +180,6 @@ public class QuestionDao implements BaseDao<Question> {
   public void update(Question question) throws DaoException {
       String sql = "UPDATE " + QUESTION_TABLE + " SET " +
                    QUESTION_CATEGORY_ID + "=?, " + 
-                   QUESTION_ANSWER_ID + "=?, " + 
                    QUESTION_TEXT + "=?, " + 
                    QUESTION_TYPE + "=?, " + 
                    QUESTION_TESTAMENT + "=?, " + 
@@ -193,13 +189,12 @@ public class QuestionDao implements BaseDao<Question> {
          
       try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
           pstmt.setInt(1,question.getCategoryId()); 
-          pstmt.setInt(2,question.getAnswerId()); 
-          pstmt.setString(3,question.getText()); 
-          pstmt.setString(4,question.getType()); 
-          pstmt.setString(5,question.getTestament()); 
-          pstmt.setString(6,question.getDifficulty()); 
-          pstmt.setFloat(7,question.getSinceVersion()); 
-          pstmt.setInt(8,question.getQuestionId());
+          pstmt.setString(2,question.getText()); 
+          pstmt.setString(3,question.getType()); 
+          pstmt.setString(4,question.getTestament()); 
+          pstmt.setString(5,question.getDifficulty()); 
+          pstmt.setFloat(6,question.getSinceVersion()); 
+          pstmt.setInt(7,question.getQuestionId());
           pstmt.executeUpdate();
       } catch (SQLException e) {
     	   String errorMessage = this.getClass().getName() + ": updateQuestion() - REASON-> " + e.getMessage();
@@ -224,7 +219,7 @@ public class QuestionDao implements BaseDao<Question> {
    */
   @Override
    public void delete(int id) throws DaoException {
-      String sql = "DELETE fROM " + QUESTION_TABLE + " WHERE " + QUESTION_ID + " = ?;";
+      String sql = "DELETE FROM " + QUESTION_TABLE + " WHERE " + QUESTION_ID + " = ?;";
       try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
      	  pstmt.setInt(1, id);
       	  pstmt.execute();
@@ -241,7 +236,6 @@ public class QuestionDao implements BaseDao<Question> {
        
        question.setQuestionId(resultSet.getInt(QUESTION_ID));
        question.setCategoryId(resultSet.getInt(QUESTION_CATEGORY_ID));
-       question.setAnswerId(resultSet.getInt(QUESTION_ANSWER_ID));
        question.setText(resultSet.getString(QUESTION_TEXT));
        question.setType(resultSet.getString(QUESTION_TYPE));
        question.setTestament(resultSet.getString(QUESTION_TESTAMENT));

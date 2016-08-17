@@ -14,9 +14,8 @@ public class Question implements Serializable {
   private static final long serialVersionUID = 1L;
   private int questionId; 
   private int categoryId; 
-  private int answerId;
   private String text;
-  private String type;
+  private String type;  // true/false, multiple choice, matching
   private String testament;
   private String difficulty;
   private float sinceVersion;
@@ -52,21 +51,7 @@ public class Question implements Serializable {
   public void setCategoryId(int categoryId) {
 	this.categoryId = categoryId;
   }
-
-  /**
-   * @return answer ID value associated with Question
-  */
-  public int getAnswerId() {
-	return answerId;
-  }
-
-  /**
-   * @param answerId answerId to set
-  */
-  public void setAnswerId(int answerId) {
-	this.answerId = answerId;
-  }
-
+ 
   /**
    * @return text associated with Question
   */
