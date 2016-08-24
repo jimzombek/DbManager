@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 public class CategoryService {
   private Logger logger = LoggerFactory.getLogger(CategoryService.class);
   private static CategoryService instance = null;
-  private static CategoryDao passageDAO = null;
+  private static CategoryDao categoryDAO = null;
   private static Gson gson = new Gson();
    
   private CategoryService() {
