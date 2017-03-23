@@ -10,31 +10,32 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.emptytomb.dbmanager.service.CategoryService;
+import com.emptytomb.dbmanager.service.QuestionCategoryService;
 import com.emptytomb.dbmanager.service.ServiceException;
 
 /**
- * The CategoryResource class implements the CRUD REST end points for the Category resource.
+ * The QuestionCategoryResource class implements the CRUD REST end points for the 
+ * QuestionCategory resource.
  * 
  * @author  Jim Zombek
  * @version 1.0
  * @since   2016-08-01
  */
-@Path("/category")
-public class CategoryResource {
+@Path("/questioncategory")
+public class QuestionCategoryResource {
 	/**
-	 * This method returns all Categories.
+	 * This method returns all Question Categories.
 	 * 
-	 * @return      JSON representation of all Categories
+	 * @return      JSON representation of all Question Categories
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategories() throws WebException {
+	public String getQuestionCategories() throws WebException {
 		String result = null;
 		try {
-			result = CategoryService.getInstance().getCategories();
+			result = QuestionCategoryService.getInstance().list();
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -42,9 +43,9 @@ public class CategoryResource {
 	}
 	
 	/**
-	 * This method returns a Category.
+	 * This method returns a Question Category.
 	 * 
-	 * @param   id  the unique id of the category to return.
+	 * @param   id  the unique id of the question category to return.
 	 * @return      JSON representation of Category
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
@@ -52,10 +53,10 @@ public class CategoryResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategory(@PathParam("id") final int id) throws WebException {
+	public String getQuestionCategory(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = CategoryService.getInstance().getCategory(id);
+			result = QuestionCategoryService.getInstance().get(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -63,13 +64,13 @@ public class CategoryResource {
 	}
 	
 	/**
-	 * This method adds a new Category
+	 * This method adds a new Question Category
 	 * 
-	 * @param   category JSON representation of category to add
-	 * @return           JSON representation of category id added
+	 * @param   category JSON representation of question category to add
+	 * @return           JSON representation of question category id added
 	 * 
 	 * <pre>{@code
-     * categoryId : Integer;
+     * questionCategoryId : Integer;
      * }</pre>
      * 
 	 * @throws      WebException if an exception was encountered during processing
@@ -77,10 +78,10 @@ public class CategoryResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String addCategory(String category) throws WebException {
+	public String addQuestionCategory(String category) throws WebException {
 		String result = null;
 		try {
-			result = CategoryService.getInstance().addCategory(category);
+			result = QuestionCategoryService.getInstance().add(category);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -88,20 +89,20 @@ public class CategoryResource {
 	}
 	
 	/**
-	 * This method updates an existing Category
+	 * This method updates an existing Question Category
 	 * 
-	 * @param   category JSON representation of category to update
-	 * @return           JSON representation of category id updated
+	 * @param   category JSON representation of question category to update
+	 * @return           JSON representation of question category id updated
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String updateCategory(String category) throws WebException {
+	public String updateQuestionCategory(String questionCategory) throws WebException {
 		String result = null;
 		try {
-			result = CategoryService.getInstance().updateCategory(category);
+			result = QuestionCategoryService.getInstance().update(questionCategory);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
@@ -109,20 +110,20 @@ public class CategoryResource {
 	}
 	
 	/**
-	 * This method deletes an existing Category
+	 * This method deletes an existing Question Category
 	 * 
-	 * @param   id  the unique id of the category to delete.
-	 * @return      JSON representation of category id deleted
+	 * @param   id  the unique id of the question category to delete.
+	 * @return      JSON representation of question category id deleted
 	 * 
 	 * @throws      WebException if an exception was encountered during processing
 	 */		
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteCategory(@PathParam("id") final int id) throws WebException {
+	public String deleteQuestionCategory(@PathParam("id") final int id) throws WebException {
 		String result = null;
 		try {
-			result = CategoryService.getInstance().deleteCategory(id);
+			result = QuestionCategoryService.getInstance().delete(id);
 		} catch (ServiceException e) {
 			throw new WebException(WebException.INTERNAL_SERVER_ERROR, e.getReason());
 		}
