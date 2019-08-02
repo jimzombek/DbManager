@@ -54,14 +54,14 @@ public class Bible implements Serializable {
   /**
    * @return publisher date associated with Bible
   */
-  public timestamp getPublishedDate() {
+  public timestamp getDatePublished() {
 	return publishedDate;
   }
 
   /**
    * @param publisheed date date bible was published to set
   */
-  public void setPublishedDate(timestamp publishedDate) {
+  public void setDatePublished(timestamp publishedDate) {
 	this.publishedDate = publishedDate;
   }
   
