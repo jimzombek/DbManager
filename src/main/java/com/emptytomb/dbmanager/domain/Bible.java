@@ -11,13 +11,17 @@ import java.io.Serializable;
 * @since   2019-08-02
 */
 public class Bible implements Serializable {
+  public enum Language {
+    ENGLISH,
+    SPANISH
+  }
   private static final long serialVersionUID = 1L;
   private int       bibleId;
   private String    publisher;
   private timestamp datePublished;
   private String    name;      // King James Version
   private String    shortName; // KJV
-  private enum      language;
+  private Language  language;
   private String    history;
    
   public Bible() {
