@@ -14,13 +14,12 @@ public class Bible implements Serializable {
   private static final long serialVersionUID = 1L;
   private int       bibleId;
   private String    publisher;
-  private timestamp yearPublished;
+  private timestamp datePublished;
   private String    name;      // King James Version
   private String    shortName; // KJV
   private enum      language;
   private String    history;
-  private String    version;  // kjv
- 
+   
   public Bible() {
   }
 
@@ -50,6 +49,20 @@ public class Bible implements Serializable {
   */
   public void setPublisher(String publisher) {
 	this.publisher = publisher;
+  }
+	
+  /**
+   * @return publisher date associated with Bible
+  */
+  public timestamp getPublishedDate() {
+	return publishedDate;
+  }
+
+  /**
+   * @param publisheed date date bible was published to set
+  */
+  public void setPublishedDate(timestamp publishedDate) {
+	this.publishedDate = publishedDate;
   }
   
   /**
@@ -92,19 +105,5 @@ public class Bible implements Serializable {
   */
   public void setHistory(String history) {
 	this.history = history;
-  }
-
-  /**
-   * @return name of the translation version associated with Translation
-  */
-  public String getVersion() {
-	return version;
-  }
-
-  /**
-   * @param translation version name of the translation to set
-  */
-  public void setVersion(String version) {
-	this.version = version;
   }
 }
