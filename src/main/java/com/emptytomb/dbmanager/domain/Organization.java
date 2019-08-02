@@ -12,18 +12,19 @@ import java.io.Serializable;
 */
 public class Organization implements Serializable {
   private static final long serialVersionUID = 1L; 
-  private int organizationId; 
+  private int    organizationId; 
   private String name; 
+  private String shortName;
   private String addressLine1;
   private String addressLine2;
   private String city;
   private String providence;
   private String postalCode;
   private String country;
-  private int yearStarted;
+  private int    yearStarted;
   private String affiliation;
   private String webSite;
-  private int membershipSize;  
+  private int    membershipSize;  
  
   public Organization() {
   }
@@ -54,6 +55,20 @@ public class Organization implements Serializable {
   */
   public void setName(String name) {
 	this.name = name;
+  }
+	
+  /**
+   * @return shortName associated with Organization
+  */
+  public String getShortName() {
+	return shortName;
+  }
+
+  /**
+   * @param shortName short name of the organization to set
+  */
+  public void setShortName(String shortName) {
+	this.shortName = shortName;
   }
 
   /**
