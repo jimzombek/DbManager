@@ -33,6 +33,7 @@ public class OrganizationDao implements BaseDao<Organization> {
   private static final String ORGANIZATION_ID = "id";
   private static final String ORGANIZATION_TABLE = "organization";
   private static final String ORGANIZATION_NAME = "name";
+  private static final String ORGANIZATION_SHORT_NAME = "shortName";
   private static final String ORGANIZATION_ADDRESS_LINE_1 = "addressLine1";
   private static final String ORGANIZATION_ADDRESS_LINE_2 = "addressLine2";
   private static final String ORGANIZATION_CITY = "city";
@@ -143,6 +144,7 @@ public class OrganizationDao implements BaseDao<Organization> {
       int autoIncKey = -1;
 	  String sql = "INSERT INTO " + ORGANIZATION_TABLE + "(" +
 	               ORGANIZATION_NAME + "," + 
+		       ORGANIZATION_SHORT_NAME + "," + 
 	               ORGANIZATION_ADDRESS_LINE_1 + "," + 
 	               ORGANIZATION_ADDRESS_LINE_2 + "," + 
 	               ORGANIZATION_CITY + "," + 
@@ -157,16 +159,17 @@ public class OrganizationDao implements BaseDao<Organization> {
                    	   	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
           pstmt.setString(1,organization.getName()); 
-          pstmt.setString(2,organization.getAddressLine1());   
-          pstmt.setString(3,organization.getAddressLine2());  
-          pstmt.setString(4,organization.getCity());    
-          pstmt.setString(5,organization.getProvidence());    
-          pstmt.setString(6,organization.getPostalCode());    
-          pstmt.setString(7,organization.getCountry());    
-          pstmt.setInt(8,organization.getYearStarted());    
-          pstmt.setString(9,organization.getAffiliation());   
-          pstmt.setString(10,organization.getWebSite());   
-          pstmt.setInt(11,organization.getMembershipSize());   
+	  pstmt.setString(2,organization.getShortName()); 
+          pstmt.setString(3,organization.getAddressLine1());   
+          pstmt.setString(4,organization.getAddressLine2());  
+          pstmt.setString(5,organization.getCity());    
+          pstmt.setString(6,organization.getProvidence());    
+          pstmt.setString(7,organization.getPostalCode());    
+          pstmt.setString(8,organization.getCountry());    
+          pstmt.setInt(9,organization.getYearStarted());    
+          pstmt.setString(10,organization.getAffiliation());   
+          pstmt.setString(11,organization.getWebSite());   
+          pstmt.setInt(12,organization.getMembershipSize());   
           pstmt.executeUpdate();
           
           // Get the auto-incremented key
@@ -200,6 +203,7 @@ public class OrganizationDao implements BaseDao<Organization> {
   public void update(Organization organization) throws DaoException {
       String sql = "UPDATE " + ORGANIZATION_TABLE + " SET " +
                    ORGANIZATION_NAME + "=?, " + 
+	           ORGANIZATION_SHORT_NAME + "=?, " + 
                    ORGANIZATION_ADDRESS_LINE_1 + "=?, " +    
                    ORGANIZATION_ADDRESS_LINE_2  + "=?, " + 
                    ORGANIZATION_CITY  + "=?, " + 
@@ -214,17 +218,18 @@ public class OrganizationDao implements BaseDao<Organization> {
    	               
        try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
           pstmt.setString(1,organization.getName()); 
-          pstmt.setString(2,organization.getAddressLine1());   
-          pstmt.setString(3,organization.getAddressLine2());  
-          pstmt.setString(4,organization.getCity());    
-          pstmt.setString(5,organization.getProvidence());    
-          pstmt.setString(6,organization.getPostalCode());    
-          pstmt.setString(7,organization.getCountry());    
-          pstmt.setInt(8,organization.getYearStarted());    
-          pstmt.setString(9,organization.getAffiliation());   
-          pstmt.setString(10,organization.getWebSite());   
-          pstmt.setInt(11,organization.getMembershipSize());  
-          pstmt.setInt(12,organization.getOrganizationId()); 
+	  pstmt.setString(2,organization.getShortName()); 
+          pstmt.setString(3,organization.getAddressLine1());   
+          pstmt.setString(4,organization.getAddressLine2());  
+          pstmt.setString(5,organization.getCity());    
+          pstmt.setString(6,organization.getProvidence());    
+          pstmt.setString(7,organization.getPostalCode());    
+          pstmt.setString(8,organization.getCountry());    
+          pstmt.setInt(9,organization.getYearStarted());    
+          pstmt.setString(10,organization.getAffiliation());   
+          pstmt.setString(11,organization.getWebSite());   
+          pstmt.setInt(12,organization.getMembershipSize());  
+          pstmt.setInt(13,organization.getOrganizationId()); 
             
           pstmt.executeUpdate();
       } catch (SQLException e) {
@@ -249,7 +254,7 @@ public class OrganizationDao implements BaseDao<Organization> {
    */
   @Override
    public void delete(int id) throws DaoException {
-      String sql = "DELETE fROM " + ORGANIZATION_TABLE + " WHERE " + ORGANIZATION_ID + " = ?;";
+      String sql = "DELETE FROM " + ORGANIZATION_TABLE + " WHERE " + ORGANIZATION_ID + " = ?;";
       try (PreparedStatement pstmt = connection.prepareStatement(sql);) {
      	  pstmt.setInt(1, id);
       	  pstmt.execute();
@@ -266,6 +271,7 @@ public class OrganizationDao implements BaseDao<Organization> {
        
        organization.setOrganizationId(resultSet.getInt(ORGANIZATION_ID));
        organization.setName(resultSet.getString(ORGANIZATION_NAME));
+       organization.setShortName(resultSet.getString(ORGANIZATION_SHORT_NAME));
        organization.setAddressLine1(resultSet.getString(ORGANIZATION_ADDRESS_LINE_1));
        organization.setAddressLine2(resultSet.getString(ORGANIZATION_ADDRESS_LINE_2));
        organization.setCity(resultSet.getString(ORGANIZATION_CITY));
