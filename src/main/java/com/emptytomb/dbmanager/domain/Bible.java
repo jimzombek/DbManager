@@ -1,6 +1,7 @@
 package com.emptytomb.dbmanager.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * The Bible class is a simple POJO containing the getter/setter methods
@@ -18,10 +19,9 @@ public class Bible implements Serializable {
   private static final long serialVersionUID = 1L;
   private int       bibleId;
   private String    publisher;
-  private timestamp datePublished;
+  private Timestamp datePublished;
   private String    name;      // King James Version
   private String    shortName; // KJV
-  private Language  language;
   private String    history;
    
   public Bible() {
@@ -58,15 +58,15 @@ public class Bible implements Serializable {
   /**
    * @return publisher date associated with Bible
   */
-  public timestamp getDatePublished() {
-	return publishedDate;
+  public Timestamp getDatePublished() {
+	return datePublished;
   }
 
   /**
    * @param publisheed date date bible was published to set
   */
-  public void setDatePublished(timestamp publishedDate) {
-	this.publishedDate = publishedDate;
+  public void setDatePublished(Timestamp datePublished) {
+	this.datePublished = datePublished;
   }
   
   /**
